@@ -1,0 +1,32 @@
+package ${package}.${beanPath};
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import java.io.Serializable;
+#foreach ($column in $columns)
+#if($column.attrType == 'Date')
+import java.util.Date;
+#break
+#end
+#end
+
+/**
+ * ${tableComment}表 ${beanName}
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Data
+@ApiModel(value = "${tableComment}表",description = "${tableComment}表")
+public class ${beanName} implements Serializable
+{
+	private static final long serialVersionUID = 1L;
+	
+#foreach ($column in $columns)
+	@ApiModelProperty(value = "$column.columnComment")
+	private $column.attrType $column.attrname;
+#end
+
+
+}
